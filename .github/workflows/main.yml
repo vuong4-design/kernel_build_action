@@ -28,10 +28,10 @@ jobs:
     - name: Build Kernel
       uses: ./
       with:
-          kernel-url: https://github.com/AcmeUI-Devices/android_kernel_xiaomi_cas
+          kernel-url: https://github.com/vxd303/test
           kernel-dir: msm-4.19
           kernel-branch: taffy
-          config: cas_defconfig
+          config: b1c1_defconfig
           arch: arm64
           aosp-gcc: true
           aosp-clang: true
