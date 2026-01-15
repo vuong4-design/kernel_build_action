@@ -137,13 +137,11 @@ runs:
         #!/bin/bash
         set -euo pipefail
 
-        # Function to display error messages and exit
         error() {
             echo "Error: $1" >&2
             exit 1
         }
 
-        # Function to run a command with sudo if not already root
         SU() {
             if [ "$(id -u)" -eq 0 ]; then
                 "$@"
@@ -152,7 +150,6 @@ runs:
             fi
         }
 
-        # Function to download and extract a file
         download_and_extract() {
             local url=$1
             local output_name=$2
@@ -398,7 +395,6 @@ runs:
             echo "::endgroup::"
         fi
 
-        # Initialize Re-Kernel if enabled
         if [ "${{ inputs.rekernel }}" == "true" ]; then
             echo "::group::Initializing Re-Kernel"
             if curl -sSLf https://github.com/dabao1955/kernel_build_action/raw/main/rekernel/patch.sh -o /tmp/rekernel_patch.sh; then
@@ -437,7 +433,6 @@ runs:
             echo "::endgroup::"
         fi
 
-        # Initialize Kali NetHunter if enabled
         if [ "${{ inputs.nethunter }}" == "true" ]; then
             echo "::group::Initializing Kali NetHunter"
             cp -v "${{ github.action_path }}/nethunter/config.sh" nconfig.sh
@@ -452,7 +447,6 @@ runs:
             echo "::endgroup::"
         fi
 
-        # Disable LTO if specified
         if [ "${{ inputs.disable-lto }}" == "true" ]; then
             if grep -q "LTO" "$CONFIG_FILE"; then
                 sed -i 's/CONFIG_LTO=y/CONFIG_LTO=n/' "$CONFIG_FILE"
@@ -462,7 +456,6 @@ runs:
             fi
         fi
 
-        # Enable KVM if specified
         if [ "${{ inputs.kvm }}" == "true" ]; then
             echo "CONFIG_VIRTUALIZATION=y" >> "$CONFIG_FILE"
             echo "CONFIG_KVM=y" >> "$CONFIG_FILE"
