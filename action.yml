@@ -430,6 +430,12 @@ runs:
             SU chmod +x /usr/local/bin/mkdtboimg
             echo "::endgroup::"
         fi
+        if ! command -v mkdtimg >/dev/null 2>&1; then
+            echo "::group::Installing mkdtimg shim"
+            SU cp -v "${{ github.action_path }}/mkdtboimg.py" /usr/local/bin/mkdtimg
+            SU chmod +x /usr/local/bin/mkdtimg
+            echo "::endgroup::"
+        fi
 
         # Initialize Kali NetHunter if enabled
         if [ "${{ inputs.nethunter }}" == "true" ]; then
